@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   mode: 'development',
-  entry: './src/app.js',
+  entry: './src/main.js',
   output: {
     path: __dirname + '/public',
     filename: 'index.js'
@@ -30,6 +30,11 @@ module.exports = {
           'sass-loader'
         ],
       },
+      {
+        test: /\.json5$/i,
+        loader: 'json5-loader',
+        type: 'javascript/auto',
+      }
     ],
   },
   resolve: {
@@ -39,6 +44,11 @@ module.exports = {
   },
   devServer: {
     contentBase:'./public',
+    proxy: {
+      '/api': {
+        target: 'http://localhost:5000/'
+      }
+    },
     open: true
   }
 }

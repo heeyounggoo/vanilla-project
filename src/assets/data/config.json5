@@ -1,0 +1,16 @@
+{
+  period: [
+    { type: 'period', value: '6', name: '6개월' },
+    { type: 'period', value: '12', name: '1년' },
+    { type: 'period', value: '24', name: '2년' },
+    { type: 'period', value: '60', name: '5년' },
+  ],
+  // 이하 개발용 데이터
+  users: [
+    { userId: 'hee920', password: '123', name: '구희영', email: ',gmldud628@naver.com', age: 26, sex: 'F', brith: '950628' },
+    { userId: 'lion', password: '123', name: '라이언', email: ',gmldud628@naver.com', age: 26, sex: 'F', brith: '950628' },
+    { userId: 'apeach', password: '123', name: '어피치', email: ',gmldud628@naver.com', age: 26, sex: 'F', brith: '950628' },
+    { userId: 'muji', password: '123', name: '무지', email: ',gmldud628@naver.com', age: 26, sex: 'F', brith: '950628' },
+    { userId: 'leo', password: '123', name: '레오', email: ',gmldud628@naver.com', age: 26, sex: 'F', brith: '950628' }
+  ]
+}
