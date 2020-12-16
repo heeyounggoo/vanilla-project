@@ -1,48 +1,9 @@
 import config from '@/assets/data/config.json5'
 import types from '@/assets/data/types.json5'
+import Component from '@/core/component'
 import axios from 'axios'
 
-const bindingData = {
-  user: 'hee920'
-}
-const api = {
-  types: [
-    { name: 'typeForExpend', api: '/types', method: 'post', payload: types.typeForExpend },
-    { name: 'typeForRevenue', api: '/types', method: 'post', payload: types.typeForRevenue }
-  ],
-  config: [
-    { name: 'period', api: '/config', method: 'post', payload: config.period }
-  ],
-  user: [
-    // { name: 'user', api: '/user', method: 'post', payload: config.users, loop: true },
-    { name: 'user', api: `/user/${bindingData.user}`, method: 'get', payload: null },
-    { name: 'user', api: `/user/${bindingData.user}`, method: 'put', payload: config.users[bindingData.user] }
-  ]
-}
-
-const component = function () {
-  // template
-  const flattenTemplate = (arr, key) => {
-    return `${arr.map((item, idx) => `<li data-name="${item.name}" data-api="${key}" data-index="${idx}" style="margin-bottom: 10px;"><strong>[${item.name}]</strong>method: ${item.method}, api: api${item.api}</li>`).join('')}`
-  }
-  const template = () => {
-    return `
-    <div class="app">
-      <h2>API Test</h2>
-      <ul class="api">
-        ${Object.keys(api).map(key => flattenTemplate(api[key], key)).join('')}
-      </ul>
-    </div>
-    `
-  }
-
-  // render
-  const title = document.createElement('div')
-  title.innerHTML = template()
-
-  return title
-}
-
+/*
 const setEvent = function (eventType, selector) {
   // event
   const targets = [...document.querySelectorAll(selector)]
@@ -73,4 +34,44 @@ const setEvent = function (eventType, selector) {
 export default async function () {
   await document.body.appendChild(component())
   await setEvent('click', '.api')
+}
+*/
+
+export default class Api extends Component {
+  data () {
+    return {
+      bindingData: {
+        user: 'hee920'
+      },
+      api: {
+        types: [
+          { name: 'typeForExpend', api: '/types', method: 'post', payload: types.typeForExpend },
+          { name: 'typeForRevenue', api: '/types', method: 'post', payload: types.typeForRevenue }
+        ],
+        config: [
+          { name: 'period', api: '/config', method: 'post', payload: config.period }
+        ],
+        user: [
+          // { name: 'user', api: '/user', method: 'post', payload: config.users, loop: true },
+          // { name: 'user', api: `/user/${this.bindingData.user}`, method: 'get', payload: null },
+          // { name: 'user', api: `/user/${this.bindingData.user}`, method: 'put', payload: config.users[this.bindingData.user] }
+        ]
+      }
+    }
+  }
+
+  flattenTemplate (arr, key) {
+    return `${arr.map((item, idx) => `<li data-name="${item.name}" data-api="${key}" data-index="${idx}" style="margin-bottom: 10px;"><strong>[${item.name}]</strong>method: ${item.method}, api: api${item.api}</li>`).join('')}`
+  }
+
+  template () {
+    return `
+    <div class="api">
+      <h2>API Test</h2>
+      <ul class="api">
+        ${Object.keys(this.api).map(key => this.flattenTemplate(this.api[key], key)).join('')}
+      </ul>
+    </div>
+    `
+  }
 }

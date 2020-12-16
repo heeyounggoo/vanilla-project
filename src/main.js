@@ -1,3 +1,3 @@
-import api from '@/pages/playground/Api'
+import Api from '@/pages/playground/Api'
 
-api()
+new Api()
