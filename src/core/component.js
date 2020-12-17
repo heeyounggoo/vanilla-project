@@ -1,12 +1,9 @@
-function setData (data) {
-  // TODO 동일 데이터 네임 조건처리 및 에러 표
-  if (data) Object.assign(this, data)
-}
+import { assignObjectKeyValue } from '@/core/util/util'
 
 export default class Component {
   constructor (props) {
-    setData.call(this, this.data())
-    setData.call(this, props)
+    assignObjectKeyValue.call(this, props)
+    assignObjectKeyValue.call(this, this.data())
 
     this.created()
     this.render()
