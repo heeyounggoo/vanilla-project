@@ -1,0 +1,38 @@
+// color
+$primary: #7366FF;
+$primary-darker: #5345CA;
+$primary-darkest: #3A2EB6;
+$primary-lighter: #6688FF;
+$primary-lightest: #66ABFC;
+
+$secondary: #FF6CAB;
+$secondary-darker: #F0408C;
+$secondary-darkest: #E1327D;
+$secondary-lighter: #FF85B9;
+$secondary-lightest: #FFA4B4;
+
+$warning: #FFAE10;
+$warning-background: #FFE0A4;
+$error: #E1327D;
+$error-background: #F5BBD4;
+$success-background: #CAC5FF;
+
+$black: #2F2E37;
+$grey-1: #BAB9C9;
+$grey-3: #9D9BAD;
+$grey-5: #5F5E6B;
+$grey-7: #39393F;
+
+$grey-2: #CAC8DF;
+$grey-4: #9593B0;
+$grey-6: #777593;
+
+$gradient: linear-gradient(140deg, $secondary 3.89%, $primary 105%);
+$gradient--primary-dark: linear-gradient(139deg, $primary 2.78%, $primary-darker 53%, $primary-darkest 104%);
+$gradient--primary-light: linear-gradient(317deg, $primary 0%, $primary-lighter 49%, $primary-lightest 97%);
+$gradient--secondary-dark: linear-gradient(135deg, $secondary 0%, $secondary-darker 52.08%, $secondary-lighter 100%);
+$gradient--secondary-light: linear-gradient(313deg, $secondary 0%, $secondary-lighter 50%, $secondary-lightest 97%);
+
+html {
+  font-size: 14px;
+}

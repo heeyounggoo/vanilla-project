@@ -1,0 +1,44 @@
+.btn {
+  // type
+  border: none;
+  border-radius: 10px;
+  color: white;
+  margin: 4px;
+
+  &--default {
+    background-color: $primary;
+  }
+
+  &--rounded {
+    background-color: $primary;
+    border-radius: 20px;
+  }
+
+  &--outlined {
+    background: white;
+    color: $primary;
+    border: 1px solid $primary;
+    border-radius: 10px;
+  }
+
+  &--disabled {
+    background: $grey-2;
+    color: $grey-4;
+  }
+
+  // sixe
+  &--lg {
+    padding: 16px 32px;
+    font-size: 1.3rem;
+  }
+
+  &--md {
+    padding: 12px 20px;
+    font-size: 1em;
+  }
+
+  &--sm {
+    padding: 8px 16px;
+    font-size: .8rem;
+  }
+}

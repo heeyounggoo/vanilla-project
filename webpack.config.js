@@ -8,6 +8,7 @@ module.exports = {
     path: __dirname + '/public',
     filename: 'index.js'
   },
+  devtool: 'inline-source-map',
   plugins: [
     new HtmlWebpackPlugin({
       hash: true
