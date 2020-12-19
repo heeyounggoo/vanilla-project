@@ -1,4 +1,13 @@
-import { isObject, hasOwnProperty } from '@/core/util/helper'
+// TODO 추후 기능별로 분리
+function isObject (data) {
+  const toString = Object.prototype.toString
+
+  return toString.call(data) === '[object Object]'
+}
+
+function hasOwnProperty (targetObj, key) {
+  return Object.prototype.hasOwnProperty.call(targetObj, key)
+}
 
 export function assignObjectKeyValue (obj) {
   // TODO 동일 데이터 네임 조건처리 및 에러 표
@@ -15,4 +24,8 @@ export function assignObjectKeyValue (obj) {
 
     this[key] = obj[key]
   })
+}
+
+export function mergeHTML (tagArr) {
+  return tagArr.join('')
 }

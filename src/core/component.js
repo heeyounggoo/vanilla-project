@@ -1,9 +1,11 @@
 import { assignObjectKeyValue } from '@/core/util/util'
 
 export default class Component {
-  constructor (props) {
+  constructor (tag, props) {
     assignObjectKeyValue.call(this, props)
     assignObjectKeyValue.call(this, this.data())
+
+    this.tag = tag
 
     this.created()
     this.render()
@@ -13,7 +15,9 @@ export default class Component {
   data () {}
 
   // template
-  template () {}
+  template () {
+    // TODO template 작성할 때 루프시 매번 join 하지 않는 방법 찾
+  }
 
   created () {}
 
@@ -22,11 +26,12 @@ export default class Component {
   // 작성한 template 코드 dom에 랜더
   render () {
     // TODO 클래스 명칭으로 class 추가
-    console.log(this, this.template())
-    const dom = document.createElement('div')
+    console.log('[template in components]', this.template())
+    const dom = document.createElement(this.tag || 'div')
+    const app = document.querySelector('#app') || document.body
 
     dom.innerHTML = this.template()
-    document.body.appendChild(dom)
+    app.appendChild(dom)
 
     this.mounted()
   }
