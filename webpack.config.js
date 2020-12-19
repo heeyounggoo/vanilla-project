@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   mode: 'development',
-  entry: './src/main.js',
+  entry: './src/App.js',
   output: {
     path: __dirname + '/public',
     filename: 'index.js'
@@ -11,7 +11,6 @@ module.exports = {
   devtool: 'inline-source-map',
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Wallet',
       template: 'src/index.html',
       hash: true
     })
