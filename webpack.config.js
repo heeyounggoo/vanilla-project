@@ -11,6 +11,8 @@ module.exports = {
   devtool: 'inline-source-map',
   plugins: [
     new HtmlWebpackPlugin({
+      title: 'Wallet',
+      template: 'src/index.html',
       hash: true
     })
   ],
