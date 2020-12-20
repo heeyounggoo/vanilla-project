@@ -5,7 +5,7 @@ function isObject (data) {
   return toString.call(data) === '[object Object]'
 }
 
-function hasOwnProperty (targetObj, key) {
+export function hasOwnProperty (targetObj, key) {
   return Object.prototype.hasOwnProperty.call(targetObj, key)
 }
 

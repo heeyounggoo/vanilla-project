@@ -2,9 +2,10 @@ export default class Router {
   constructor (router) {
     console.log('[Router in core]', router)
     this.router = router
-    this.render(router)
+    // this.render(router)
   }
 
+  /*
   render (router, target) {
     const targetEl = document.querySelector(`.${target || 'router'}`)
 
@@ -28,6 +29,7 @@ export default class Router {
       })
     }
   }
+  */
 
   pushState (index) {
     const currentRoute = this.router[index]

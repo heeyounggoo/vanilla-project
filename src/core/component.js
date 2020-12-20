@@ -1,38 +1,61 @@
-import { assignObjectKeyValue } from '@/core/util/util'
+import {
+  assignObjectKeyValue,
+  hasOwnProperty
+} from '@/core/util/util'
 
 export default class Component {
-  constructor (tag, props) {
-    assignObjectKeyValue.call(this, props)
-    assignObjectKeyValue.call(this, this.data())
+  $options
+  $el
 
-    this.tag = tag
+  constructor (props) {
+    assignObjectKeyValue.call(this, props, 'props-set')
+    assignObjectKeyValue.call(this, this.data(), 'data-set')
 
-    this.created()
-    this.render()
+    setOption.call(this)
+    renderDOM.call(this)
   }
 
   // 컴포넌트 내부에서 사용할 데이터 셋팅
-  data () {}
+  data () {
+    return {}
+  }
 
   // template
   template () {
-    // TODO template 작성할 때 루프시 매번 join 하지 않는 방법 찾
+    return ''
   }
 
-  created () {}
-
-  mounted () {}
-
-  // 작성한 template 코드 dom에 랜더
-  render () {
-    // TODO 클래스 명칭으로 class 추가
-    console.log('[template in components]', this.template())
-    const dom = document.createElement(this.tag || 'div')
-    const app = document.querySelector('#app') || document.body
-
-    dom.innerHTML = this.template()
-    app.appendChild(dom)
-
+  created () {
     this.mounted()
   }
+
+  mounted () {}
+}
+
+function renderDOM () {
+  const hasChildComp = hasOwnProperty(this.$options, 'components', 'renderDOM')
+  console.log(1, 'renderDOM', hasChildComp, this.$options.name)
+  const wrapper = document.querySelector(`.${this.$options.name}`) || document.querySelector('#App')
+  wrapper.innerHTML = this.template()
+
+  this.$el = wrapper
+
+  if (hasChildComp) {
+    Object.keys(this.$options.components).forEach(item => {
+      console.log(2, item, 'render start')
+      new this.$options.components[item]()
+    })
+  }
+
+  console.log(3, this)
+
+  this.created()
+}
+
+function setOption () {
+  this.$el = null
+  this.$options = Object.assign({}, {
+    name: this.constructor.name,
+    components: hasOwnProperty(this.data(), 'components') ? this.data().components : {}
+  })
 }

@@ -1,20 +1,13 @@
 import Component from '@/core/component'
 import SideBar from '@/pages/common/SideBar'
-// import Api from '@/pages/playground/Api'
 
 const App = class App extends Component {
-  data () {}
-
-  template () {
-    return `<div id="app"><div class="page"></div></div>`
+  data () {
+    return {
+      components: { SideBar }
+    }
   }
-
-  mounted () {
-    new SideBar('nav')
-    // new Api()
-    this.setRouter()
-  }
-
+  /*
   setRouter () {
     // set router after add component
     import('@/router/index')
@@ -24,6 +17,7 @@ const App = class App extends Component {
       })
       .catch(err => console.log(err))
   }
+  */
 }
 
 new App()
