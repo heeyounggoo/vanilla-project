@@ -10,7 +10,9 @@ export default class SideBar extends Component {
 
   template () {
     return `
-      <nav class="SideBar router sidebar"><template class="RouterLink"></template></nav>
+      <nav class="SideBar router sidebar">
+        <template class="RouterLink"></template>
+      </nav>
     `
   }
 

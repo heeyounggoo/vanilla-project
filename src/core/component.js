@@ -1,3 +1,4 @@
+// TODO fragment 기능 추가, div로 바로 랜더되지 않도록 하기 위함
 import {
   assignObjectKeyValue,
   hasOwnProperty
@@ -42,7 +43,7 @@ function renderDOM () {
 
   if (hasChildComp) {
     Object.keys(this.$options.components).forEach(item => {
-      console.log(2, item, 'render start')
+      console.log(2, item, 'render start in', this.$options.name)
       new this.$options.components[item]()
     })
   }
