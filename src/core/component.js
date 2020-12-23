@@ -7,11 +7,16 @@ import {
 export default class Component {
   $options
   $el
+  $router
+  $route
+  $store
 
   constructor (props) {
+    // console.log(this, 'in Component Class')
     assignObjectKeyValue.call(this, props, 'props-set')
     assignObjectKeyValue.call(this, this.data(), 'data-set')
 
+    setGlobalProtoType.call(this)
     setOption.call(this)
     renderDOM.call(this)
   }
@@ -35,7 +40,6 @@ export default class Component {
 
 function renderDOM () {
   const hasChildComp = hasOwnProperty(this.$options, 'components', 'renderDOM')
-  console.log(1, 'renderDOM', hasChildComp, this.$options.name)
   const wrapper = document.querySelector(`.${this.$options.name}`) || document.querySelector('#App')
   wrapper.innerHTML = this.template()
 
@@ -43,12 +47,9 @@ function renderDOM () {
 
   if (hasChildComp) {
     Object.keys(this.$options.components).forEach(item => {
-      console.log(2, item, 'render start in', this.$options.name)
       new this.$options.components[item]()
     })
   }
-
-  console.log(3, this)
 
   this.created()
 }
@@ -59,4 +60,8 @@ function setOption () {
     name: this.constructor.name,
     components: hasOwnProperty(this.data(), 'components') ? this.data().components : {}
   })
+}
+
+function setGlobalProtoType () {
+  this.$router = Component.prototype.$router
 }

@@ -1,6 +1,6 @@
 import Router from '@/core/router/index'
 
-const router = new Router([
+export default new Router([
   {
     name: 'Api',
     component: () => import('@/pages/playground/Api.js')

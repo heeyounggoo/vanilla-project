@@ -1,33 +1,29 @@
-// TODO 자식 컴포넌트 2개 이상일 경우 랜더 안되는 이슈
-
 import Component from '@/core/component'
 // import Store from '@/core/store/store'
+import router from '@/router/index'
 import SideBar from '@/pages/common/SideBar'
-// import TopBar from '@/pages/common/TopBar'
-// import { install } from '@/mixins/install'
+import TopBar from '@/pages/common/TopBar'
+import install from '@/mixins/install'
 import '@/assets/style/global.scss'
-
-// install.call(this, Component, {
-//   store: store
-// })
 
 const App = class App extends Component {
   data () {
     return {
-      components: { SideBar }
+      components: { SideBar, TopBar }
     }
   }
-  /*
-  setRouter () {
-    // set router after add component
-    import('@/router/index')
-      .then((data) => {
-        console.log(data)
-        return data
-      })
-      .catch(err => console.log(err))
+
+  template () {
+    return `
+      <div class="TopBar"></div>
+      <div class="SideBar"></div>
+    `
   }
-  */
 }
 
-new App()
+install(Component, {
+  // store: store
+  router: router
+}).then(() => new App())
+
+// new App()
