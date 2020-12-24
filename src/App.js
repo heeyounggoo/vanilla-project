@@ -15,11 +15,20 @@ const App = class App extends Component {
 
   template () {
     return `
+    <div class="container">
       <div class="TopBar"></div>
       <div class="SideBar"></div>
+      <main class="main">
+        <div class="page pa-5">
+          <div class="RouterView pa-5"></div>
+        </div>
+      </main>
+    </div>
     `
   }
 }
+
+console.log('router >>>> ', router)
 
 install(Component, {
   // store: store

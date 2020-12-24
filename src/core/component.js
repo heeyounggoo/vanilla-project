@@ -12,10 +12,15 @@ export default class Component {
   $store
 
   constructor (props) {
-    // console.log(this, 'in Component Class')
+    this._functional = props ? hasOwnProperty(props, 'functional') ? props.functional : false : false
+
     assignObjectKeyValue.call(this, props, 'props-set')
     assignObjectKeyValue.call(this, this.data(), 'data-set')
 
+    this.init()
+  }
+
+  init () {
     setGlobalProtoType.call(this)
     setOption.call(this)
     renderDOM.call(this)
@@ -40,7 +45,8 @@ export default class Component {
 
 function renderDOM () {
   const hasChildComp = hasOwnProperty(this.$options, 'components', 'renderDOM')
-  const wrapper = document.querySelector(`.${this.$options.name}`) || document.querySelector('#App')
+  const target = this._functional ? '.RouterView' : `.${this.$options.name}`
+  const wrapper =  document.querySelector(target) || document.querySelector('#App')
   wrapper.innerHTML = this.template()
 
   this.$el = wrapper
