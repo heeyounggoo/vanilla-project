@@ -6,16 +6,43 @@ export default class Router {
 
   push () {}
 
-  pushState (index) {
-    const currentRoute = this.router[index]
-    window.history.pushState(null, `/${currentRoute.name}`, this.generatePath(currentRoute))
-    this.router[index].component()
-      .then((data) => {
-        return new data.default()
-      })
+  pushState (router) {
+    window.history.pushState(null, `/${router.name}`, generatePath(router))
   }
 
-  generatePath (router) {
-    return `${window.location.origin}/${router.name}`
+  registerEvent (target) {
+    const targetEl = target || document
+
+    const linkEl = targetEl.querySelectorAll('.router-link__anchor')
+    Array.prototype.forEach.call(linkEl, el => {
+      el.addEventListener('click', (e) => {
+        e.preventDefault()
+
+        if (e.target && e.target.attributes && e.target.attributes.href) {
+          const routerName = e.target.attributes.href.value.replace(/(\/)/, '')
+          const toRouter = this.router.find(item => item.name === routerName)
+
+          importComponent(toRouter)
+            .then(() => this.pushState(toRouter))
+        }
+      })
+    })
   }
+}
+
+function generatePath (router) {
+  return `${window.location.origin}/${router.name}`
+}
+
+function importComponent (router) {
+  return new Promise((resolve, reject) => {
+    router.component()
+      .then(data => {
+        resolve(true)
+        return new data.default({
+          functional: true
+        })
+      })
+      .catch((err) => reject(err))
+  })
 }
