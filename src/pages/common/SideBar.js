@@ -7,8 +7,10 @@ export default class SideBar extends Component {
   }
 
   template () {
-    const routerLinkTemplate = this.$router.router.map(router => {
-      return `<li class="router-link__item"><a class="router-link__anchor" href="/${router.name}">${router.name}</a></li>`
+    const requireAuthRoutes = this.$router.router.filter(route => route.meta.requireAuth)
+
+    const routerLinkTemplate = requireAuthRoutes.map(router => {
+      return `<li class="router-link__item"><a class="router-link__anchor" href="${router.path}">${router.name}</a></li>`
     }).join('')
 
     return `

@@ -14,8 +14,8 @@ export default class Component {
   constructor (props) {
     this._functional = props ? hasOwnProperty(props, 'functional') ? props.functional : false : false
 
-    assignObjectKeyValue.call(this, props, 'props-set')
-    assignObjectKeyValue.call(this, this.data(), 'data-set')
+    assignObjectKeyValue.call(this, props)
+    assignObjectKeyValue.call(this, this.data())
 
     this.init()
   }

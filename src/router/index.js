@@ -1,12 +1,4 @@
 import Router from '@/core/router/index'
+import { defaultRouter } from '@/router/path'
 
-export default new Router([
-  {
-    name: 'Api',
-    component: () => import('@/pages/playground/Api.js')
-  },
-  {
-    name: 'Assets',
-    component: () => import('@/pages/playground/Assets.js')
-  }
-])
+export default new Router(defaultRouter)

@@ -1,13 +1,17 @@
 export default class Router {
-  constructor (router) {
-    console.log('[Router in core]', router)
-    this.router = router
+  constructor (routes) {
+    console.log('[Router in core]', routes)
+    this.router = routes
   }
 
   push () {}
 
-  pushState (router) {
-    window.history.pushState(null, `/${router.name}`, generatePath(router))
+  pushState (route) {
+    window.history.pushState(null, route.path, generatePath(route))
+  }
+
+  addRoutes (routes) {
+    this.router = this.router.concat(routes)
   }
 
   registerEvent (target) {
@@ -19,8 +23,8 @@ export default class Router {
         e.preventDefault()
 
         if (e.target && e.target.attributes && e.target.attributes.href) {
-          const routerName = e.target.attributes.href.value.replace(/(\/)/, '')
-          const toRouter = this.router.find(item => item.name === routerName)
+          const routePath = e.target.attributes.href.value
+          const toRouter = this.router.find(item => item.path === routePath)
 
           importComponent(toRouter)
             .then(() => this.pushState(toRouter))
@@ -30,13 +34,13 @@ export default class Router {
   }
 }
 
-function generatePath (router) {
-  return `${window.location.origin}/${router.name}`
+function generatePath (route) {
+  return `${window.location.origin}${route.path}`
 }
 
-function importComponent (router) {
+function importComponent (route) {
   return new Promise((resolve, reject) => {
-    router.component()
+    route.component()
       .then(data => {
         resolve(true)
         return new data.default({
