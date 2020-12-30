@@ -1,6 +1,6 @@
 import Component from '@/core/component'
 
-export default class Assets extends Component {
+export default class UiAssets extends Component {
   data () {
     return {
       button: {

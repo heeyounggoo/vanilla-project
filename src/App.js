@@ -1,7 +1,6 @@
 import Component from '@/core/component'
 // import Store from '@/core/store/store'
 import router from '@/router/index'
-import { routes, generateRoutes } from '@/router/path'
 import SideBar from '@/pages/common/SideBar'
 import TopBar from '@/pages/common/TopBar'
 import install from '@/mixins/install'
@@ -29,14 +28,8 @@ const App = class App extends Component {
   }
 }
 
-console.log('router >>>> ', router)
-
 install(Component, {
-  // store: store
   router: router
 }).then(() => {
-  router.addRoutes(generateRoutes(routes))
   new App()
 })
-
-// new App()

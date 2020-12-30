@@ -1,4 +1,8 @@
 import Router from '@/core/router/index'
-import { defaultRouter } from '@/router/path'
+import { defaultRouter, routes } from '@/router/path'
 
-export default new Router(defaultRouter)
+
+const router = new Router(defaultRouter)
+router.addRoutes(routes)
+
+export default router

@@ -10,8 +10,6 @@ export function hasOwnProperty (targetObj, key) {
 }
 
 export function assignObjectKeyValue (obj) {
-  // TODO 동일 데이터 네임 조건처리 및 에러 표
-  // if (data) Object.assign(this, data)
   if (!obj && !isObject(obj)) {
     return false
   }
@@ -24,8 +22,4 @@ export function assignObjectKeyValue (obj) {
 
     this[key] = obj[key]
   })
-}
-
-export function mergeHTML (tagArr) {
-  return tagArr.join('')
 }
