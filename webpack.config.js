@@ -33,6 +33,10 @@ module.exports = {
         ],
       },
       {
+        test: /\.(ttf|eot|svg|woff|woff2)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        use: ['file-loader']
+      },
+      {
         test: /\.json5$/i,
         loader: 'json5-loader',
         type: 'javascript/auto',

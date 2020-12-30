@@ -18,20 +18,28 @@ $error-background: #F5BBD4;
 $success-background: #CAC5FF;
 
 $black: #2F2E37;
-$grey-1: #BAB9C9;
-$grey-3: #9D9BAD;
-$grey-5: #5F5E6B;
-$grey-7: #39393F;
+$gray-1: #BAB9C9;
+$gray-3: #9D9BAD;
+$gray-5: #5F5E6B;
+$gray-7: #39393F;
 
-$grey-2: #CAC8DF;
-$grey-4: #9593B0;
-$grey-6: #777593;
+$gray-2: #CAC8DF;
+$gray-4: #9593B0;
+$gray-6: #777593;
 
 $gradient: linear-gradient(140deg, $secondary 3.89%, $primary 105%);
 $gradient--primary-dark: linear-gradient(139deg, $primary 2.78%, $primary-darker 53%, $primary-darkest 104%);
 $gradient--primary-light: linear-gradient(317deg, $primary 0%, $primary-lighter 49%, $primary-lightest 97%);
 $gradient--secondary-dark: linear-gradient(135deg, $secondary 0%, $secondary-darker 52.08%, $secondary-lighter 100%);
 $gradient--secondary-light: linear-gradient(313deg, $secondary 0%, $secondary-lighter 50%, $secondary-lightest 97%);
+
+// mixin
+
+@mixin align-all-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 html {
   font-size: 14px;
