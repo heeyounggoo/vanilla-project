@@ -6,7 +6,8 @@ module.exports = {
   entry: './src/App.js',
   output: {
     path: __dirname + '/public',
-    filename: 'index.js'
+    filename: 'index.js',
+    publicPath: '/' // historyApiFallback 사용시 멀티 뎁스 새로고침시 404로 빠지지 않게 하기위
   },
   devtool: 'inline-source-map',
   plugins: [
@@ -55,6 +56,6 @@ module.exports = {
         target: 'http://localhost:5000/'
       }
     },
-    open: true
+    historyApiFallback: true
   }
 }

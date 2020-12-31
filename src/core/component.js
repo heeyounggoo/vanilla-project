@@ -44,7 +44,7 @@ export default class Component {
 }
 
 function renderDOM () {
-  const hasChildComp = hasOwnProperty(this.$options, 'components', 'renderDOM')
+  const hasChildComp = hasOwnProperty(this.$options, 'components')
   const target = this._functional ? '.RouterView' : `.${this.$options.name}`
   const wrapper =  document.querySelector(target) || document.querySelector('#App')
   wrapper.innerHTML = this.template()

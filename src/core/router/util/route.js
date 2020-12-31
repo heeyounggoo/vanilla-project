@@ -1,4 +1,5 @@
 import { hasOwnProperty } from '@/core/util/util'
+import {getLocation} from "@/core/router/util/path";
 
 const ROUTE = {
   name: '',
@@ -14,7 +15,7 @@ function setLoadComponentFunc (route) {
    * @desc 이름으로 넘어온 컴포넌트 실제 컴포넌트 로드하는 로직으로 셋
    * 아래 방식은 컴포넌트 네임이 유일하다는 가정아래 작성
    */
-  const requireRouteCompPath = require.context('../../pages', true, /\.js$/)
+  const requireRouteCompPath = require.context('../../../pages', true, /\.js$/)
   const targetRouteCompPath = requireRouteCompPath.keys().find(item => {
     const lastPathName = item.split('/').slice(-1)[0] // path 중 가장 마지막 경로
     return lastPathName === `${route.name}.js`
@@ -80,7 +81,13 @@ function generateFlattenRoutes (routes) {
   }, [])
 }
 
+function updateCurrentRoute (self) {
+  self.current = getLocation()
+  self.route = self._flattenRouter.find(item => item.path === self.current.path)
+}
+
 export {
   generateRoutes,
-  generateFlattenRoutes
+  generateFlattenRoutes,
+  updateCurrentRoute
 }

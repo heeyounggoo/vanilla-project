@@ -1,63 +1,74 @@
 import {
   generateRoutes,
-  generateFlattenRoutes
-} from '@/core/router/route'
+  generateFlattenRoutes,
+  updateCurrentRoute
+} from '@/core/router/util/route'
 
 import {
   getLocation,
   genFullPath
-} from '@/core/router/path'
+} from '@/core/router/util/path'
 
+import {
+  importComponent
+} from '@/core/router/util/resolveComponent'
+
+import {
+  hasOwnProperty
+} from '@/core/util/util'
 
 export default class Router {
   constructor (routes) {
-    this.router = []
-    this._flattenRouter = []
-    this.current = null
+    this._self = this
+    this.router = [] // 전체 route - nested
+    this._flattenRouter = [] // 전체 route - flatten
+    this.route = null // current route
+    this.current = null // current location
 
     const handlePopState = () => {
       this.current = getLocation()
-      const toRouter = this._flattenRouter.find(route => route.path === this.current.path)
-      resolveComponent(toRouter)
+      this.push(this.current, false)
     }
 
-    window.addEventListener('popstate', handlePopState)
     this.addRoutes(routes)
+    window.addEventListener('popstate', handlePopState)
   }
 
-  push (to) {
-    let toRouter = null
+  push (to, addState = true, callback) {
+    /**
+     * @desc
+     * to: { name: '', path: '', query: '', hash: '' }, string(name)우
+     * addState: pushState 로직 실행 여부, default: true
+     * callback: 컴포넌트 로드 후 추가적으로 실행되야하는 콜백함수
+     * push 이벤트 트리거되는 경우
+     * - app.js 로드 후 라우터 링크 이벤트를 통해서 접근
+     * - 새로그침, 직접 url 접근하여 fallback 로직을 통해서 실행
+     * - history go/back으로 popstate 이벤트로 트리거되는 경
+     */
+    const toLocation = to ? typeof to === 'string' ? { name: to } : Object.assign({}, to) : getLocation()
 
-    if (typeof to === 'string') {
-      toRouter = this._flattenRouter.find(route => route.name === to)
-    } else {
-      toRouter = this._flattenRouter.find(route => {
-        return to.name ? route.name === to.name : to.path ? route.path === to.path : false
+    if (toLocation) {
+      const toRoute = this._flattenRouter.find(route => {
+        return hasOwnProperty(toLocation, 'name')
+          ? route.name === toLocation.name
+          : hasOwnProperty(toLocation, 'path')
+            ? route.path === toLocation.path
+            : false
       })
-    }
 
-    resolveComponent(
-      toRouter,
-      {
-        path: to.path || toRouter.path,
-        query: to.query,
-        hash: to.hash
-      },
-      this.pushState
-    )
-  }
-
-  pushState (to) {
-    let { query, hash, path } = to
-    hash = /(#)/.test(hash) ? `#${hash}` : hash
-
-    if (to) {
-      window.history.pushState(
-        null,
-        '',
-        genFullPath({ path: path, query: query, hash: hash })
-      )
-      // this.current = getLocation()
+      importComponent(toRoute)
+        .then(() => {
+          if (addState) {
+            pushState.call(this, {
+              path: toLocation.path,
+              query: toLocation.query,
+              hash: toLocation.hash
+            })
+          } else {
+            updateCurrentRoute(this._self) // pushstate 추가 안하는 경우 현재 location을 저장
+          }
+          if (callback) callback()
+        })
     }
   }
 
@@ -66,7 +77,7 @@ export default class Router {
 
     this.router = this.router.concat(addRoutes)
     this._flattenRouter = this._flattenRouter.concat(generateFlattenRoutes(addRoutes))
-    this.current = getLocation()
+    updateCurrentRoute(this._self)
   }
 
   registerEvent (target) {
@@ -99,29 +110,18 @@ function routerLinkClickEvent (e) {
   }
 }
 
-function resolveComponent (route, to, callback) {
-  if (!route) {
-    console.error('[Router] Don`t have route')
-    return false
+function pushState (to) {
+  const history = window.history
+  let { query, hash, path } = to
+  hash = /(#)/.test(hash) ? `#${hash}` : hash
+
+  if (to) {
+    history.pushState(
+      null,
+      '',
+      genFullPath({ path: path, query: query, hash: hash })
+    )
+
+    updateCurrentRoute(this._self)
   }
-
-  const toPath = to || { path: route.path, query: route.query, hash: route.hash }
-
-  importComponent(route)
-    .then(() => {
-      if (callback) callback(toPath)
-    })
-}
-
-function importComponent (route) {
-  return new Promise((resolve, reject) => {
-    route.component()
-      .then(data => {
-        resolve(true)
-        return new data.default({
-          functional: true
-        })
-      })
-      .catch((err) => reject(err))
-  })
 }

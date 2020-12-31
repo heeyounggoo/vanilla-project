@@ -1,5 +1,4 @@
 function getLocation () {
-  console.log('getLocation ', window.location)
   return {
     fullPath: window.location.href,
     path: window.location.pathname,
@@ -9,7 +8,6 @@ function getLocation () {
 }
 
 function genFullPath (to) {
-  console.log('genFullPath >', to)
   return `${to.path}${stringifyQuery(to.query)}${to.hash || ''}`
 }
 

@@ -1,5 +1,4 @@
 import Component from '@/core/component'
-// import Store from '@/core/store/store'
 import router from '@/router/index'
 import SideBar from '@/pages/common/SideBar'
 import TopBar from '@/pages/common/TopBar'
@@ -19,8 +18,8 @@ const App = class App extends Component {
       <div class="TopBar"></div>
       <div class="SideBar"></div>
       <main class="main">
-        <div class="page pa-5">
-          <div class="RouterView pa-5"></div>
+        <div class="page">
+          <div class="RouterView row"></div>
         </div>
       </main>
     </div>
@@ -32,4 +31,5 @@ install(Component, {
   router: router
 }).then(() => {
   new App()
+  router.push()
 })

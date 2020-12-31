@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "build": "webpack",
-    "serve": "webpack serve"
+    "serve": "webpack serve --history-api-fallback"
   },
   "author": "",
   "license": "ISC",
