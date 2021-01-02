@@ -23,6 +23,7 @@ export default class Component {
   init () {
     setGlobalProtoType.call(this)
     setOption.call(this)
+    this.created()
     renderDOM.call(this)
   }
 
@@ -37,10 +38,12 @@ export default class Component {
   }
 
   created () {
-    this.mounted()
+    // dom 생성 전, data/$options 등 부모 클래스 데이터 및 자식 데이터 선
   }
 
-  mounted () {}
+  mounted () {
+    // dom 생성 후로 $el 접근 가능 자식에서 dom 접근 가능
+  }
 }
 
 function renderDOM () {
@@ -57,7 +60,7 @@ function renderDOM () {
     })
   }
 
-  this.created()
+  this.mounted()
 }
 
 function setOption () {

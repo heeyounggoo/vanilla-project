@@ -52,8 +52,8 @@ export default class SideBar extends Component {
     `
   }
 
-  created () {
-    super.created()
+  mounted () {
+    super.mounted()
     this.setEvent()
   }
 
