@@ -1,0 +1,11 @@
+.input {
+  background: white;
+  border: none;
+  padding: 8px;
+  margin: 0;
+
+  &--outlined {
+    border: 1px solid $gray-2;
+    border-radius: 5px;
+  }
+}

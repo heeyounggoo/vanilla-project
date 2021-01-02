@@ -78,3 +78,26 @@
 .justify-center {
   justify-content: center;
 }
+
+.row {
+  width: 100%;
+  display: flex;
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+}
+
+.col {
+  padding: 12px;
+}
+
+@mixin make-col ($column: $columns) {
+  @for $i from 1 through $column {
+    .col-#{$i} {
+      flex-grow: 1;
+      max-width: 100%;
+      width: $i / $column * 100%;
+    }
+  }
+}
+
+@include make-col

@@ -82,8 +82,25 @@
 
   .main {
     display: flex;
-    height: 100vh;
+    min-height: 100vh;
     padding: 70px 0 0 250px;
     background: #F8F8FF;
+
+    .page {
+      width: 100%;
+      padding: 20px;
+      margin-bottom: 40px;
+
+      .RouterView {
+        padding: 20px;
+      }
+
+      .pannel {
+        padding: 48px;
+        //margin: 12px;
+        background: white;
+        border-radius: 20px;
+      }
+    }
   }
 }

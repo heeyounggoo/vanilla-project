@@ -33,8 +33,10 @@ $gradient--primary-light: linear-gradient(317deg, $primary 0%, $primary-lighter 
 $gradient--secondary-dark: linear-gradient(135deg, $secondary 0%, $secondary-darker 52.08%, $secondary-lighter 100%);
 $gradient--secondary-light: linear-gradient(313deg, $secondary 0%, $secondary-lighter 50%, $secondary-lightest 97%);
 
-// mixin
+// grid variables
+$columns: 12;
 
+// mixin
 @mixin align-all-center {
   display: flex;
   align-items: center;
@@ -43,4 +45,5 @@ $gradient--secondary-light: linear-gradient(313deg, $secondary 0%, $secondary-li
 
 html {
   font-size: 14px;
+  letter-spacing: -0.7px;
 }

@@ -1,0 +1,11 @@
+h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 12px 0;
+}
+
+.text {
+  &--bold {
+    font-weight: bold;
+  }
+}
