@@ -34,7 +34,8 @@ export default class Router {
     window.addEventListener('popstate', handlePopState)
   }
 
-  push (to, addState = true, callback) {
+  async push (to, addState = true, callback) {
+    //TODO 기본 라우트(/)일 때 분기처리
     /**
      * @desc
      * to: { name: '', path: '', query: '', hash: '' }, string(name)우
@@ -56,19 +57,18 @@ export default class Router {
             : false
       })
 
-      importComponent(toRoute)
-        .then(() => {
-          if (addState) {
-            pushState.call(this, {
-              path: toLocation.path,
-              query: toLocation.query,
-              hash: toLocation.hash
-            })
-          } else {
-            updateCurrentRoute(this._self) // pushstate 추가 안하는 경우 현재 location을 저장
-          }
-          if (callback) callback()
+      if (!toRoute) return false
+      await importComponent(toRoute)
+      if (addState) {
+        pushState.call(this, {
+          path: toLocation.path,
+          query: toLocation.query,
+          hash: toLocation.hash
         })
+      } else {
+        updateCurrentRoute(this._self)
+      }
+      if (callback) await callback()
     }
   }
 
