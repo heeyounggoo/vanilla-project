@@ -17,16 +17,23 @@ const PROPS = {
   itemsPerPageText: 'Rows per page'
 }
 
-const DATA = (props) => {
-  return {
-    itemsLength: props.items.length,
-    startPage: props.page - 1 === 0 ? 1 : (props.page - 1) * props.itemsPerPage,
-    lastPage: props.page * props.itemsPerPage > props.items.length ? props.items.length : props.page * props.itemsPerPage,
-    pageCount: Math.ceil(props.items.length / props.itemsPerPage)
+const COMPUTED = {
+  // arrow function this 바인딩 불가
+  itemsLength () {
+    return this.items.length
+  },
+  startPage () {
+    return this.page - 1 === 0 ? 1 : (this.page - 1) * this.itemsPerPage
+  },
+  lastPage () {
+    return this.page * this.itemsPerPage > this.items.length ? this.items.length : this.page * this.itemsPerPage
+  },
+  pageCount () {
+    return Math.ceil(this.items.length / this.itemsPerPage)
   }
 }
 
 export {
   PROPS,
-  DATA
+  COMPUTED
 }

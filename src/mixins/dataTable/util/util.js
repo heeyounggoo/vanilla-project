@@ -1,6 +1,5 @@
-function getItems (props, data) {
-  const { totalVisible, page } = props
-  const { pageCount } = data
+function getItems (props) {
+  const { totalVisible, page, pageCount } = props
 
   if (totalVisible === 0) return []
   const maxLength = Math.min(totalVisible, pageCount) // 최대 노출 갯수
