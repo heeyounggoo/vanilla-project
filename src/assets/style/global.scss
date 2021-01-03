@@ -3,12 +3,15 @@
 // variables
 @import "./_variables";
 
+// pages
+@import "./layout";
+
 // ui component
 @import "./reset";
-@import "./spacing";
 @import "./typograhpy";
 @import "./button";
 @import "./input";
 @import "./alert";
+@import "./icons";
 @import "./table";
-@import "./layout";
+@import "./spacing";

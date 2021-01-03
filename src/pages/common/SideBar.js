@@ -33,9 +33,9 @@ export default class SideBar extends Component {
       return `
         <li class="router-link--root router-link__item">
           <div class="router-link--root__item flex align-center">
-            <i class="${this.icon[route.name]} router-link__item__prepend-icon mr-2"></i>
+            <i class="${this.icon[route.name]} router-link__item__prepend-icon mr-2 icon"></i>
             <a href="${route.path || '#'}" class="router-link__item__content ${route.children ? 'has-children' : ''}">${route.meta.title}</a>
-            ${route.children ? '<i class="fas fa-chevron-down router-link__item__append-icon ml-2 mr-2"></i>' : ''}
+            ${route.children ? '<i class="fas fa-chevron-down router-link__item__append-icon ml-2 mr-2 icon"></i>' : ''}
           </div>
           ${route.children ? childrenTemplate(route.children) : ''}
         </li>
