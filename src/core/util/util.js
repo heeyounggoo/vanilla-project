@@ -23,3 +23,15 @@ export function assignObjectKeyValue (obj) {
     this[key] = obj[key]
   })
 }
+
+export function convertTagName (name) {
+  // side-bar > SideBar, SideBar > side-bar
+  const regex = /(-)/
+
+  if (regex.test(name)) {
+    return name.split('-').map(code => code[0].toUpperCase() + code.slice(1, code.length)).join('')
+  } else {
+    const toConvertName = name[0].toLowerCase() + name.slice(1, name.length)
+    return toConvertName.replace(/[A-Z]/g, string => `-${string.toLowerCase()}`)
+  }
+}

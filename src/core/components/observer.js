@@ -1,3 +1,7 @@
+import {
+  hasOwnProperty
+} from '@/core/util/util'
+
 class Observer {
   constructor (vm) {
     this.$vm = vm
@@ -6,27 +10,26 @@ class Observer {
 
   defineReactive () {
     const vm  = this.$vm
-    Object.keys(this.$vm._data).forEach(key => {
-      const dep = new Dep()
+    if (this.$vm._data && Object.keys(this.$vm._data).length > 0) {
+      Object.keys(this.$vm._data).forEach(key => {
+        const dep = new Dep()
 
-      Object.defineProperty(this.$vm, key, {
-        // enumerable: true,
-        // configurable: false,
-        get: function () {
-          console.log(1, `get ${key} in observer`)
-          if (Dep.target) {
-            dep.add(Dep.target)
+        Object.defineProperty(this.$vm, key, {
+          get: function () {
+            if (Dep.target) {
+              dep.add(Dep.target)
+            }
+            return vm._data[key]
+          },
+          set: function (val) {
+            if (vm._data[key] !== val) {
+              vm._data[key] = val
+              dep.notify()
+            }
           }
-          return vm._data[key]
-        },
-        set: function (val) {
-          if (vm._data[key] !== val) {
-            vm._data[key] = val
-            dep.notify()
-          }
-        }
+        })
       })
-    })
+    }
   }
 }
 

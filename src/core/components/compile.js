@@ -2,12 +2,23 @@ import {
   Watcher
 } from '@/core/components/observer'
 
+import {
+  convertTagName
+} from '@/core/util/util'
+
 export default class Compile {
   constructor (el, vm) {
     this.$vm = vm
-    this.$el = isNodeElement(el) ? el : document.querySelector(el)
-    this.$el.innerHTML = this.$vm.$options.template()
 
+    if (el) {
+      this.$el = isNodeElement(el) ? el :  document.querySelector(el)
+    } else {
+      const tagName = convertTagName(this.$vm.$options.name)
+      this.$el = document.querySelector(tagName)
+    }
+
+    // TODO 컴포넌트 네임으로 된 태크 제거
+    this.$el.innerHTML = this.$vm.$options.template.call(this.$vm)
     this.compile(this.$el)
   }
 
@@ -30,6 +41,10 @@ export default class Compile {
 
   compileElement (node) {
     const attrs = node.attributes
+
+    if (/(-)/.test(node.localName)) {
+      this.$vm.$options.components[convertTagName(node.localName)].render()
+    }
 
     Array.prototype.forEach.call(attrs, (attr) => {
       const key = attr.value

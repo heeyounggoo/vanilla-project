@@ -2,6 +2,9 @@ import Compile from '@/core/components/compile'
 import {
   Observer
 } from '@/core/components/observer'
+import {
+  hasOwnProperty
+} from '@/core/util/util'
 
 export default class Component {
   constructor (options) {
@@ -10,19 +13,42 @@ export default class Component {
 
     new Observer(this)
     this.defineComputed()
+    this.defineHooks()
+  }
 
-    this.$el = new Compile(this.$options.el || document.body, this)
+  render () {
+    this.executeHooks('created')
+    this.$el = new Compile(this.$options.el, this)
   }
 
   defineComputed () {
     const self = this
     const computed = this.$options.computed
 
-    Object.keys(computed).forEach(key => {
-      Object.defineProperty(self, key, {
-        get: computed[key],
-        set: function () {}
+    if (computed && Object.keys(computed).length > 0) {
+      Object.keys(computed).forEach(key => {
+        Object.defineProperty(self, key, {
+          get: computed[key],
+          set: function () {}
+        })
       })
+    }
+  }
+
+  executeHooks (hook) {
+    if (hasOwnProperty(this, hook) && this[hook]) {
+      this[hook]()
+    }
+  }
+
+  defineHooks () {
+    const hooks = [
+      'created',
+      'mounted'
+    ]
+
+    hooks.forEach(hook => {
+      this[hook] = this.$options[hook]
     })
   }
 }

@@ -1,18 +1,17 @@
-import Component from '@/core/component'
+import Component from '@/core/components/component'
+import Router from '@/router/index'
 
-export default class SideBar extends Component {
-  data () {
-    return {
-      icon: {
-        DashBoard: 'fas fa-desktop',
-        ExpendIncome: 'fas fa-coins',
-        Assets: 'fas fa-receipt'
-      }
+const SideBar = new Component({
+  name: 'SideBar',
+  data: {
+    icon: {
+      DashBoard: 'fas fa-desktop',
+      ExpendIncome: 'fas fa-coins',
+      Assets: 'fas fa-receipt'
     }
-  }
-
+  },
   template () {
-    const requireAuthRoutes = this.$router.router.filter(route => route.meta.requireAuth)
+    const requireAuthRoutes = Router.router.filter(route => route.meta.requireAuth)
     const childrenTemplate = (routes) => { // children routes 존재하는 경우 template 생성
       const routerTemplate = routes.map(route => {
         return `
@@ -24,7 +23,7 @@ export default class SideBar extends Component {
 
       return `
         <div class="router-link--children">
-          <ul class="router-link--children__container">${routerTemplate}</ul>
+          <ul class="router-link--children__container">{{ routerTemplate }}</ul>
         </div>
       `
     }
@@ -50,15 +49,20 @@ export default class SideBar extends Component {
         </div>
       </nav>
     `
-  }
+  },
 
   mounted () {
     super.mounted()
     this.setEvent()
+  },
+
+  methods: {
+    setEvent () {
+      const target = this.$el.querySelector('.router-link')
+      Router.registerEvent(target) // router-link__anchor 이벤트
+    }
   }
 
-  setEvent () {
-    const target = this.$el.querySelector('.router-link')
-    this.$router.registerEvent(target) // router-link__anchor 이벤트
-  }
-}
+})
+
+export default SideBar
