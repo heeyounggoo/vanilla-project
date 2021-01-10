@@ -1,9 +1,10 @@
 import Compile from '@/core/components/compile'
-import Observer from '@/core/components/observer'
+import {
+  Observer
+} from '@/core/components/observer'
 
 export default class Component {
   constructor (options) {
-    console.log('options :', options)
     this.$options = options || {}
     this._data = this.$options.data
 

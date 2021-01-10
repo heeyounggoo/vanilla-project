@@ -1,3 +1,7 @@
+import {
+  Watcher
+} from '@/core/components/observer'
+
 export default class Compile {
   constructor (el, vm) {
     this.$vm = vm
@@ -16,8 +20,9 @@ export default class Compile {
       }
       if (isTextElement(node) && regex.test(node.textContent)) {
         const key = RegExp.$1.trim()
-        updateText(node, this.getVal(key))
-        this.bind(node, this.$vm, key, updateText(node, this.getVal(key)))
+        this.bind(node, key, 'text')
+        // updateText(node, this.getVal(key))
+        // this.bind(node, this.$vm, key, updateText(node, this.getVal(key)))
       }
       if (node.childNodes && node.childNodes.length > 0) this.compile(node)
     })
@@ -44,7 +49,17 @@ export default class Compile {
     })
   }
 
-  bind (node, vm, key) {
+  bind (node, key, type) {
+    const func = update[`${type}Update`]
+    func && func(node, this.getVal(key))
+
+    new Watcher({
+      vm: this.$vm,
+      key: key,
+      cb: (val, oldVal) => {
+        func(node, val, oldVal)
+      }
+    })
   }
 
   getVal (key) {
@@ -57,8 +72,11 @@ export default class Compile {
 }
 
 
-function updateText (node, value) {
-  node.textContent = value
+const update = {
+  textUpdate: function (node, value) {
+    console.log('--- textupdate ---', node, value)
+    node.textContent = value
+  }
 }
 
 function isNodeElement (node) {
