@@ -1,14 +1,12 @@
 import Component from '@/core/components/component'
 import SideBar from '@/pages/common/SideBar'
-// import TopBar from '@/pages/common/TopBar'
+import TopBar from '@/pages/common/TopBar'
 import '@/assets/style/global.scss'
-
-console.log(1, 'App.js')
 
 const App = new Component({
   el: '#App',
   name: 'App',
-  components: { SideBar },
+  components: { SideBar, TopBar },
   data: {
     message: 'hello'
   },
@@ -17,6 +15,7 @@ const App = new Component({
     return `
       <div class="container">
         <side-bar></side-bar>
+        <top-bar></top-bar>
         <main class="main">
           <div class="page">
             <div class="RouterView row"></div>

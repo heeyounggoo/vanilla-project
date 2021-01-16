@@ -1,13 +1,10 @@
-import Component from '@/core/component'
+import Component from '@/core/components/component'
 
-export default class DashBoard extends Component {
-  data () {
-    return {}
-  }
-
+export default new Component({
+  name: 'DashBoard',
   template () {
     return `
       <div>${this.$options.name}</div>
     `
   }
-}
+})

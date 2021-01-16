@@ -1,18 +1,17 @@
-import Component from '@/core/component'
+import Component from '@/core/components/component'
 
-export default class UiAssets extends Component {
-  data () {
-    return {
-      button: {
-        type: ['default', 'rounded', 'outlined', 'disabled'],
-        size: ['lg', 'md', 'sm']
-      },
-      alert: {
-        type: ['default', 'outlined'],
-        state: ['success', 'warning', 'error']
-      }
+export default new Component({
+  name: 'UiAssets',
+  data: {
+    button: {
+      type: ['default', 'rounded', 'outlined', 'disabled'],
+      size: ['lg', 'md', 'sm']
+    },
+    alert: {
+      type: ['default', 'outlined'],
+      state: ['success', 'warning', 'error']
     }
-  }
+  },
   template () {
     return `
       <div class="Assets">
@@ -39,4 +38,4 @@ export default class UiAssets extends Component {
       </div>
     `
   }
-}
+})

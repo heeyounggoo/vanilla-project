@@ -1,13 +1,12 @@
-import Component from '@/core/component'
+import Component from '@/core/components/component'
 
-export default class TopBar extends Component {
+const topBar = new Component({
+  name: 'TopBar',
   template () {
     return `
-      <header></header>
+      <header class="TopBar"></header>
     `
-  }
+  },
+})
 
-  created () {
-    console.log('created in TopBar', this)
-  }
-}
+export default topBar

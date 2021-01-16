@@ -30,6 +30,24 @@
     }
   }
 
+  &-header {
+    &__search {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+
+      .icon {
+        position: absolute;
+        height: 100%;
+        padding-left: 12px;
+      }
+
+      input {
+        min-width: 280px;
+      }
+    }
+  }
+
   &-footer {
     display: flex;
     justify-content: space-between;

@@ -13,12 +13,14 @@ export default class Component {
 
     new Observer(this)
     this.defineComputed()
+    this.defineMethods()
     this.defineHooks()
   }
 
   render () {
     this.executeHooks('created')
-    this.$el = new Compile(this.$options.el, this)
+    this.$el = new Compile(this.$options.el, this).$el
+    this.executeHooks('mounted')
   }
 
   defineComputed () {
@@ -31,6 +33,18 @@ export default class Component {
           get: computed[key],
           set: function () {}
         })
+      })
+    }
+  }
+
+  defineMethods () {
+    const methods = this.$options.methods
+
+    if (methods && Object.keys(methods).length > 0) {
+      Object.keys(methods).forEach(method => {
+        this[method] = function () {
+          methods[method].call(this)
+        }
       })
     }
   }

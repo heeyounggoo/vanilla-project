@@ -13,7 +13,7 @@ const SideBar = new Component({
   template () {
     const requireAuthRoutes = Router.router.filter(route => route.meta.requireAuth)
     const childrenTemplate = (routes) => { // children routes 존재하는 경우 template 생성
-      const routerTemplate = routes.map(route => {
+      const childRouterTemplate = routes.map(route => {
         return `
           <li class="router-link__item router-link--children__item flex align-center">
             <a href="${route.path || '#'}" class="router-link__item__content">${route.meta.title}</a>
@@ -23,7 +23,7 @@ const SideBar = new Component({
 
       return `
         <div class="router-link--children">
-          <ul class="router-link--children__container">{{ routerTemplate }}</ul>
+          <ul class="router-link--children__container">${childRouterTemplate}</ul>
         </div>
       `
     }
@@ -52,7 +52,6 @@ const SideBar = new Component({
   },
 
   mounted () {
-    super.mounted()
     this.setEvent()
   },
 
