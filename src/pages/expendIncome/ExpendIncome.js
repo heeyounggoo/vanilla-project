@@ -1,5 +1,5 @@
 import Component from '@/core/components/component'
-import DataTable from '@/mixins/dataTable/dataTable'
+import DataTable from '@/mixins/dataTable/index'
 
 export default new Component({
   name: 'ExpendIncome',
@@ -67,7 +67,6 @@ export default new Component({
   },
   mounted () {
     const table = this.$el.querySelector('.data-table')
-    const dataTable = new DataTable(table, this.tableProps)
-    dataTable.render()
+    new DataTable(table, this.tableProps)
   }
 })

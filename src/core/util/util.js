@@ -5,11 +5,11 @@ function isObject (data) {
   return toString.call(data) === '[object Object]'
 }
 
-export function hasOwnProperty (targetObj, key) {
+function hasOwnProperty (targetObj, key) {
   return Object.prototype.hasOwnProperty.call(targetObj, key)
 }
 
-export function assignObjectKeyValue (obj) {
+function assignObjectKeyValue (obj) {
   if (!obj && !isObject(obj)) {
     return false
   }
@@ -24,7 +24,7 @@ export function assignObjectKeyValue (obj) {
   })
 }
 
-export function convertTagName (name) {
+function convertTagName (name) {
   // side-bar > SideBar, SideBar > side-bar
   const regex = /(-)/
 
@@ -34,4 +34,10 @@ export function convertTagName (name) {
     const toConvertName = name[0].toLowerCase() + name.slice(1, name.length)
     return toConvertName.replace(/[A-Z]/g, string => `-${string.toLowerCase()}`)
   }
+}
+
+export {
+  hasOwnProperty,
+  assignObjectKeyValue,
+  convertTagName
 }

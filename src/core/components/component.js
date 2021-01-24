@@ -17,9 +17,9 @@ export default class Component {
     this.defineHooks()
   }
 
-  render () {
+  render (view) {
     this.executeHooks('created')
-    this.$el = new Compile(this.$options.el, this).$el
+    this.$el = new Compile(view || this.$options.el, this).$el
     this.executeHooks('mounted')
   }
 
