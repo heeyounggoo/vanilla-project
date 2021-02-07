@@ -3,7 +3,6 @@ import {
 } from '@/core/components/regex'
 
 export function directiveFor ({ attr, node }) {
-  console.log('1-4. [for - directive]')
   let itemKey = null
   let arrayKey = null
 
@@ -30,6 +29,10 @@ export function directiveFor ({ attr, node }) {
     })
 
     node.parentNode.removeChild(node)
+
+    if (node.childNodes && node.childNodes.length) {
+      node.innerHTML = ''
+    }
   }
 
   repeat()

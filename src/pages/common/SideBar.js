@@ -1,5 +1,4 @@
 import Component from '@/core/components/component'
-import Router from '@/router/index'
 
 const SideBar = new Component({
   name: 'SideBar',
@@ -10,8 +9,13 @@ const SideBar = new Component({
       Assets: 'fas fa-receipt'
     }
   },
+  computed: {
+    requiredRoutes () {
+      return this.$router.router.filter(route => route.meta.requireAuth)
+    }
+  },
   template () {
-    const requireAuthRoutes = Router.router.filter(route => route.meta.requireAuth)
+    const requireAuthRoutes = this.$router.router.filter(route => route.meta.requireAuth)
     const childrenTemplate = (routes) => { // children routes 존재하는 경우 template 생성
       const childRouterTemplate = routes.map(route => {
         return `
@@ -41,11 +45,16 @@ const SideBar = new Component({
       `
     }).join('')
 
+    //language=HTML
     return `
       <nav class="sidebar">
-        <div class="logo-container"></div>
         <div class="router-container">
-          <ul class="router-link">${routerTemplate}</ul>
+          <ul class="router-link">
+            <li for="route in requiredRoutes" class="router-link--root router-link__item">
+              <i class="{{ icon[route.name] }} router-link__item__prepend-icon mr-2 icon"></i>
+              <a href="{{ route.path || '#' }}" class="router-link__item__content {{ route.children ? 'has-children' : '' }}">{{ route.meta.title }}</a>
+            </li>
+          </ul>
         </div>
       </nav>
     `
@@ -58,7 +67,7 @@ const SideBar = new Component({
   methods: {
     setEvent () {
       const target = this.$el.querySelector('.router-link')
-      Router.registerEvent(target) // router-link__anchor 이벤트
+      this.$router.registerEvent(target) // router-link__anchor 이벤트
     }
   }
 

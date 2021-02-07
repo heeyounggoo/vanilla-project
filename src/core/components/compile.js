@@ -39,7 +39,6 @@ export default class Compile {
     Array.prototype.forEach.call(elements.childNodes, (node) => {
 
       if (isTextElement(node) && VALUE_REG.test(node.textContent)) {
-        console.log('1-1. [compile - text node]', node, node.textContent, 'scope?', !!scope)
         const matched = node.textContent.match(VALUE_REG)
         const updateText = (node) => {
           node.textContent = node.textContent.replace(VALUE_REG, (match, $1) => this.parseExpression($1.trim(), scope || this.$vm))
@@ -68,7 +67,6 @@ export default class Compile {
     const attrs = node.attributes
 
     if (/(-)/.test(node.localName)) {
-      console.log('1-2. [compile element node] - tag')
       this.$vm.$options.components[convertTagName(node.localName)].render()
     }
 
@@ -76,13 +74,11 @@ export default class Compile {
       const value = attr.value
 
       if (Compile.directives.indexOf(attr.name) !== -1 && checkAttrExist(value)) {
-        console.log('1-3. [compile element node] - attributes', attr.name, attr.value)
         directiveFor.call(this, {
           attr: value,
           node: node
         })
       } else {
-        console.log('1-3. [compile element node] - attributes', attr.name, attr.value)
         if (VALUE_REG.test(attr.value)) {
           attr.value = attr.value.replace(VALUE_REG, (match, $1) => this.parseExpression($1.trim(), scope || this.$vm))
         }
@@ -92,7 +88,6 @@ export default class Compile {
   }
 
   parseExpression (keys, data) {
-    console.log('2. [parseExpression]', keys, data)
     let result = null
 
     const _getVal = (keys, data) => {
@@ -103,11 +98,9 @@ export default class Compile {
         attr: keys.substr(dotIndex + 1)
       }
 
-      console.log('3. [_getVal]', keys, parseData)
-
       if (dotIndex !== -1) {
         parseData = parseData[key.data]
-        if (key.attr.indexOf('.') !== -1) _getVal(key.attr,  parseData)
+        if (key.attr.indexOf('.') !== -1) return _getVal(key.attr,  parseData)
         else return parseData[key.attr]
       } else {
         return data[key.attr]
@@ -119,10 +112,6 @@ export default class Compile {
     }
 
     return _getVal(keys, data)
-  }
-
-  getVal (keys, data) {
-    let parseData = data
   }
 }
 
