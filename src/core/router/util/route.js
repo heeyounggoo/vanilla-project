@@ -1,5 +1,5 @@
 import { hasOwnProperty } from '@/core/util/util'
-import {getLocation} from "@/core/router/util/path";
+import { getLocation } from "@/core/router/util/path";
 
 const ROUTE = {
   name: '',
@@ -12,8 +12,7 @@ const ROUTE = {
 
 function setLoadComponentFunc (route) {
   /**
-   * @desc 이름으로 넘어온 컴포넌트 실제 컴포넌트 로드하는 로직으로 셋
-   * 아래 방식은 컴포넌트 네임이 유일하다는 가정아래 작성
+   * @desc 이름으로 넘어온 컴포넌트 실제 컴포넌트 로드하는 로직
    */
   const requireRouteCompPath = require.context('../../../pages', true, /\.js$/)
   const targetRouteCompPath = requireRouteCompPath.keys().find(item => {
@@ -25,7 +24,7 @@ function setLoadComponentFunc (route) {
   return targetRouteCompPath ? loadComponent : null
 }
 
-function generatePath (route, parentPath) {
+function generatePath (route, parentPath)  {
   /**
    * @desc 자식 라우터들 존재하는 경우 부모 라우터랑 합쳐 url 생성
    */

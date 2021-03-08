@@ -64,31 +64,7 @@ const routes = [
     meta: {
       title: '예산/자산',
       requireAuth: true
-    },
-    children: [
-      {
-        name: 'SavingDeposit',
-        order: 1,
-        parent_id: 3,
-        menu_id: 31,
-        path: '/saving-deposit',
-        meta: {
-          title: '적금/예금',
-          requireAuth: true
-        }
-      },
-      {
-        name: 'Budget',
-        order: 2,
-        parent_id: 3,
-        menu_id: 32,
-        path: '/budget',
-        meta: {
-          title: '예산설정',
-          requireAuth: true
-        }
-      }
-    ]
+    }
   }
 ]
 

@@ -35,7 +35,6 @@ export default class Router {
   }
 
   async push (to, addState = true, callback) {
-    //TODO 기본 라우트(/)일 때 분기처리
     /**
      * @desc
      * to: { name: '', path: '', query: '', hash: '' }, string(name)우

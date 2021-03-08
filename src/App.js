@@ -1,33 +1,18 @@
 import Component from '@/core/components/component'
 import Router from '@/router/index'
 import SideBar from '@/pages/common/SideBar'
-// import TopBar from '@/pages/common/TopBar'
+import TopBar from '@/pages/common/TopBar'
 import '@/assets/style/global.scss'
 
 const App = new Component({
   el: '#App',
   name: 'App',
-  components: { SideBar },
-  /*data: {
-    key: {
-      title: 'title',
-      desc: 'desc'
-    },
-    text: {
-      title: 'App',
-      desc: 'App입니다.'
-    }
-  },
-  computed: {
-    computedText () {
-      return this.text.title + 'computed'
-    }
-  },*/
+  components: { SideBar, TopBar },
   template () {
     //language=HTML
     return `
       <div class="container">
-        <!--<top-bar></top-bar>-->
+        <top-bar></top-bar>
         <side-bar></side-bar>
         <main class="main">
           <div class="page">

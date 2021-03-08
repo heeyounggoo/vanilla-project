@@ -5,6 +5,8 @@
     top: 0;
     width: 250px;
     height: 100vh;
+    margin-top: 70px;
+    padding-top: 24px;
     background: white;
     box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.05);
 
@@ -16,7 +18,10 @@
 
     .router-link {
       &__item {
+        display: flex;
         padding: 0 20px;
+        min-height: 42px;
+        align-items: center;
         cursor: pointer;
 
         &__content {
